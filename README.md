@@ -11,6 +11,7 @@ bash <(curl https://pterodactyl-installer.se)
 ### HTTPS using Let's Encrypt? type n
 ### Assume SSL? type y
 ### agree HTTPS request? type n
+```
 ##############################################################
 * Hostname/FQDN: panel.darknodes.site
 * Configure Firewall? false
@@ -18,6 +19,7 @@ bash <(curl https://pterodactyl-installer.se)
 * Assume SSL? true
 
 ##############################################################
+```
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /2.pem -out /1.pem -subj "/CN=localhost"
 ```
@@ -96,3 +98,43 @@ Daemon Port: 443
 SSL: Not Behind Proxy
 Use the node subdomain as the FQDN (for me: node.kvm-i7.host)
 Copy config token and run the command as usual
+## If panel and node are on different hosts:
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /2.pem -out /1.pem -subj "/CN=localhost"
+```
+```
+sed -i 's|^\(\s*cert:\s*\).*|\1/1.pem|' /etc/pterodactyl/config.yml
+```
+```
+sed -i 's|^\(\s*key:\s*\).*|\1/2.pem|' /etc/pterodactyl/config.yml
+```
+```
+systemctl restart wings
+```
+## If panel and node are on the same host:
+```
+sed -i 's|^\(\s*cert:\s*\).*|\1/1.pem|' /etc/pterodactyl/config.yml
+```
+```
+sed -i 's|^\(\s*key:\s*\).*|\1/2.pem|' /etc/pterodactyl/config.yml
+```
+```
+systemctl restart wings
+```
+```
+# Config for Allos
+IP: 0.0.0.0
+Alias: localhost
+Ports: 1025-2069
+```
+# Tunneling a MC Server
+```
+nohup ssh -R 0:0.0.0.0:{your-port} serveo.net &
+```
+```
+cat nohup.out
+```
+# Then connect to your server via
+```
+serveo.net:{your-port}
+    

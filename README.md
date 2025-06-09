@@ -32,3 +32,19 @@ sed -i 's/\b443\b/8443/g; s/\b80\b/8000/g' /etc/nginx/sites-available/pterodacty
 ```
 systemctl restart nginx
 ```
+# no output is OK
+Go to one.dash.cloudflare.com
+
+Network → Tunnels → Create Tunnel
+Select cloudflared, name it whatever you want
+Choose Debian → click under "If you don’t have cloudflared installed on your machine"
+Paste the copied install command into the VPS shell
+Then click under "After you have installed cloudflared on your machine, you can install a service to automatically run your tunnel whenever your machine starts"
+Again, Paste the copied install command into the VPS shell.
+Now click next, use the same subdomain as earlier (for eg - panel.darknodes.site)
+Service Type: https
+Service URL: localhost:8443
+Additional Settings → TLS → enable "No TLS Verify"
+Click save hostname
+Go to panel.darknodes.site (or whatever your subdomain is) and check if it works.
+

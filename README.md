@@ -15,4 +15,5 @@ bash <(curl https://pterodactyl-installer.se)
 * Configure Firewall? false
 * Configure Let's Encrypt? false
 * Assume SSL? true
+
 ##############################################################

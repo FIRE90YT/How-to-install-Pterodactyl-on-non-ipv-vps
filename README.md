@@ -96,7 +96,7 @@ Admin → Locations → Create one (for me: INDIA1)
 Admin → Nodes → Add node (name it whatever)
 Daemon Port: 443
 SSL: Not Behind Proxy
-Use the node subdomain as the FQDN (for me: node.kvm-i7.host)
+Use the node subdomain as the FQDN (for eg node.darknodes.site)
 Copy config token and run the command as usual
 ## If panel and node are on different hosts:
 ```
